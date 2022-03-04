@@ -4,7 +4,8 @@
   "description": "banking app project from scratch",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass":"node-sass -w project/scss/ -o project/dist/css/ --recursive"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Geekers-Joel237/bankingAppProject/issues"
   },
-  "homepage": "https://github.com/Geekers-Joel237/bankingAppProject#readme"
+  "homepage": "https://github.com/Geekers-Joel237/bankingAppProject#readme",
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  }
 }
