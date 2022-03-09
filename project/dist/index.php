@@ -35,7 +35,7 @@
                     <a href="#instructors" class="nav-link">Team</a>
                 </li>
                 <li class="nav-item">
-                    <a href="./register.html" class="nav-link btn btn-outline-light rounded-pill ms-3">Sing Up</a>
+                    <a href="./register.php" class="nav-link btn btn-outline-light rounded-pill ms-3">Sing Up</a>
                 </li>
             </ul>
         </div>

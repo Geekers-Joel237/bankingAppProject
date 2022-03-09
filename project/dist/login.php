@@ -33,10 +33,10 @@
                           <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="./forgetpw.html" class="alert ms-5"><i class="fa-solid fa-unlock-keyhole"></i>
+                        <a href="./forgetpw.php" class="alert ms-5"><i class="fa-solid fa-unlock-keyhole"></i>
                               Forget My Password</a>
                           <div class="form-group my-2">
-                            <p>You are new , Dont worry <a href="./register.html" class="alert"> Sign Up</a></p>
+                            <p>You are new , Dont worry <a href="./register.php" class="alert"> Sign Up</a></p>
                           </div>
                         
                       </form>

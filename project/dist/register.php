@@ -46,7 +46,7 @@
                             <input type="password" class="form-control" id="confirm" placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-primary my-2">Submit</button>
-                        <a href="./login.html" class="alert ms-5"><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <a href="./login.php" class="alert ms-5"><i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Already have an account</a>
                       </form>
                 </div>

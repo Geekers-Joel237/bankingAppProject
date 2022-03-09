@@ -36,7 +36,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Welcome,<span>USER NAME</span></a></li>
             <li><a href="#"><img src="./img/logo.svg" alt="avatar" srcset="" class="avatar"></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="login.php">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
