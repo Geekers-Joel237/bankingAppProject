@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,21 +19,22 @@
                 </div>
                 <div class="col-lg-6 col-md shadow bg-light border">
                     <div class="h1 text-center text-primary my-3">LOGIN</div>
-                    <form class="p-3">
+                    <form class="p-3" method ="post" 
+                    action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
                         <div class="form-group mb-2">
                           <label for="email">Email address</label>
-                          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                          <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                      
                         </div>
                         <div class="form-group mb-2">
                           <label for="password">Password</label>
-                          <input type="password" class="form-control" id="password" placeholder="Password" required>
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         </div>
                         <div class="form-check mb-2">
                           <input type="checkbox" class="form-check-input" id="exampleCheck1">
                           <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                         <a href="./forgetpw.php" class="alert ms-5"><i class="fa-solid fa-unlock-keyhole"></i>
                               Forget My Password</a>
                           <div class="form-group my-2">
