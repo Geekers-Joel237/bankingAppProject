@@ -127,7 +127,7 @@
 
 </head>
 <body  class="login">
-    <section class="p-5  rounded h-100">
+    <section class="p-5  rounded h-100 ">
         <div class="container h-100 rounded">
             <?php if($msg != '') :?>
                 <div class="alert <?php echo $msgClass?>">

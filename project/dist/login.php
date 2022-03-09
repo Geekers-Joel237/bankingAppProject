@@ -1,3 +1,78 @@
+<?php 
+    require '../config/config.php';
+    require '../config/bd.php';
+
+    //Message Vars
+    $msg = '';
+    $msgClass = '';
+
+    //Check for submit
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = test_input($_POST['email']);
+        $password = test_input($_POST['password']);
+
+        //Validation
+
+        if ( !empty($email)&& !empty($password)) {
+            //Passed
+                
+                //test email
+                if (filter_var($email,FILTER_VALIDATE_EMAIL) === false) {
+                    //failed
+                    $msg = 'Please use a valid email';
+                    $msgClass = 'alert-danger';
+                } else {
+                    //passed
+
+                            $email = mysqli_real_escape_string($conn,$email);
+                            $password = mysqli_real_escape_string($conn,$password);
+
+                        //     //create query
+                            $query1 = 'SELECT * FROM user';
+
+                        //     //get result
+                            $result1 = mysqli_query($conn,$query1);
+
+                        //     //fetch data
+                            $emails = mysqli_fetch_all($result1,MYSQLI_ASSOC);
+
+                        //     //Free result1
+                            mysqli_free_result($result1);
+
+                            //close connection
+                            // mysqli_close($conn);
+
+                            foreach ($emails as $mail) {
+                              
+                              if ($email == $mail[strtoupper('email')] && $password == $mail[strtoupper('userpassword')]) {
+                                session_start();  
+                                $_SESSION['username'] = $mail['NOM'];
+                                header('Location:index.php');
+                                break;
+                                        
+                                } else {
+                                  $msg = 'Incorrect email or password';
+                                  $msgClass = 'alert-danger';
+                                }
+                            }
+                       
+                }
+                
+        } else {
+            //Failed
+            $msg = 'Please fill in all fields ';
+            $msgClass = 'alert-danger';
+        }
+    }
+
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +88,11 @@
 <body class="border login border-3">
     <section class="p-5  rounded h-100 ">
         <div class="container h-100 rounded">
+        <?php if($msg != '') :?>
+                <div class="alert <?php echo $msgClass?>">
+                    <?php echo $msg; ?>
+                </div>
+            <?php endif;?>
             <div class="row h-100 justify-content-between align-items-center g-3">
                 <div class="col-lg-6 col-md d-none d-md-block">
                     <img src="../dist/img/login.svg" alt="" class="img-fluid">
