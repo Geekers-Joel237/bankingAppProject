@@ -1,3 +1,84 @@
+<?php 
+    require '../config/config.php';
+    require '../config/bd.php';
+
+    session_start(); 
+
+    //Message Vars
+    $msg = '';
+    $msgClass = '';
+
+    //Check for submit
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $password = test_input($_POST['password']);
+        $confirm_pw = test_input($_POST['confirm_pw']);
+
+        //Validation
+
+        if (!empty($password) && !empty($confirm_pw)) {
+            //Passed
+           if ($password != $confirm_pw) {
+                $msg = 'Please confirm Your Password';
+               $msgClass = 'alert-danger';
+            }else {
+                //tout est correct
+                $password = mysqli_real_escape_string($conn,$password);
+ 
+                
+                $query1 = 'SELECT * FROM user WHERE email='. '"'.$_SESSION['usermail'].'"'.'';
+
+                // die($query1);
+                //get result
+                $result1 = mysqli_query($conn,$query1);
+
+                // echo serialize($result1);
+                   //     //fetch data
+                $emails = mysqli_fetch_assoc($result1);
+                // var_dump($emails);
+                   
+                //     //Free result1
+               mysqli_free_result($result1);    
+
+                $query = "UPDATE user SET
+                    email = '$emails[EMAIL]',
+                    nom = '$emails[NOM]',
+                    prenom = '$emails[PRENOM]',
+                    userpassword = '$password',
+                    tel = '$emails[TEL]'
+                WHERE email = '{$_SESSION['usermail']}'";
+
+                // die($query);
+
+                if (mysqli_query($conn,$query)) {
+                    $msg = 'Youpi your have setup your new password';
+                    $msgClass = 'alert-success';
+                     // header('Location:login.php');
+
+                   //close connection
+                                        
+                 } else {
+                   echo 'ERROR' . mysqli_error($conn);
+                }
+            }
+         }
+       
+         else {
+            //Failed
+            $msg = 'Please fill in all fields ';
+            $msgClass = 'alert-danger';
+        }
+    
+    }
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,19 +93,25 @@
 <body class="border login border-3">
     <section class="p-5  rounded h-100 ">
         <div class="container h-100 rounded">
+            <?php if($msg != '') :?>
+                <div class="alert <?php echo $msgClass?>">
+                    <?php echo $msg; ?>
+                </div>
+            <?php endif;?>
             <div class="row h-100 justify-content-between align-items-center g-3">
                 <div class="col-md bg-light shadow border">
                     <div class="h1 text-center text-primary my-3 text-uppercase">Set Password</div>
-                    <form class="p-3">
+                    <form class="p-3" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
+        method="post">
                         <div class="form-group mb-2">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <label for="password"> New Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                           </div>
                           <div class="form-group mb-2">
-                            <label for="password"> Confirm Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <label for="confirm_pw"> Confirm Password</label>
+                            <input type="password" class="form-control" name="confirm_pw" id="password" placeholder="Password" required>
                           </div>
-                        
+                          
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="./login.php" class="alert ms-5"><i class="fa-solid fa-unlock-keyhole"></i>
                               Login</a>

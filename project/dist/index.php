@@ -1,3 +1,9 @@
+<?php 
+
+session_start();
+// session_destroy();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +40,15 @@
                 <li class="nav-item">
                     <a href="#instructors" class="nav-link">Team</a>
                 </li>
+                <li class="nav-item ">
+                <a href="userdashboard.php" class="nav-link ">
+                 <span class="text-warning"><!--<?php echo 'Welcome '?> -->
+                <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : '' ?></span>
+                </a>
+                    
+               
                 <li class="nav-item">
-                    <a href="./register.php" class="nav-link btn btn-outline-light rounded-pill ms-3">Sing Up</a>
+                    <a href="./register.php" class="nav-link btn btn-outline-light rounded-pill ms-3">Sign Up</a>
                 </li>
             </ul>
         </div>

@@ -1,3 +1,80 @@
+<?php 
+    require '../config/config.php';
+    require '../config/bd.php';
+
+    //Message Vars
+    $msg = '';
+    $msgClass = '';
+
+    //Check for submit
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = test_input($_POST['email']);
+
+        //Validation
+
+        if ( !empty($email)) {
+            //Passed
+                
+                //test email
+                if (filter_var($email,FILTER_VALIDATE_EMAIL) === false) {
+                    //failed
+                    $msg = 'Please use a valid email';
+                    $msgClass = 'alert-danger';
+                } else {
+                    //passed
+
+                            $email = mysqli_real_escape_string($conn,$email);
+
+                        //     //create query
+                            $query1 = 'SELECT email FROM user';
+
+                        //     //get result
+                            $result1 = mysqli_query($conn,$query1);
+
+                        //     //fetch data
+                            $emails = mysqli_fetch_all($result1,MYSQLI_ASSOC);
+
+                        //     //Free result1
+                            mysqli_free_result($result1);
+
+                            //close connection
+                            // mysqli_close($conn);
+
+                            foreach ($emails as $mail) {
+                              
+                              if ($email == $mail['email']) {
+                                session_start();  
+                                $_SESSION['usermail'] = $mail['email'];
+                                header('Location:setnewpw.php');
+                                break;
+                                        
+                                } else {
+                                  $msg = 'Incorrect email ';
+                                  $msgClass = 'alert-danger';
+                                }
+                            }
+                       
+                }
+                
+        } else {
+            //Failed
+            $msg = 'Please fill in all fields ';
+            $msgClass = 'alert-danger';
+        }
+    }
+
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +89,21 @@
 <body  class="border login border-3">
     <section class="p-5  rounded h-100 ">
         <div class="container h-100 rounded">
+        <?php if($msg != '') :?>
+                <div class="alert <?php echo $msgClass?>">
+                    <?php echo $msg; ?>
+                </div>
+            <?php endif;?>
             <div class="row h-100 justify-content-between align-items-center g-3">
                 <div class="col-md bg-light shadow border">
                     <div class="h1 text-center text-primary my-3 text-uppercase">Forget Password</div>
-                    <form class="p-3">
+                    <form class="p-3" method ="post" 
+                    action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
                         <div class="form-group mb-2">
                           <label for="email">Email address</label>
-                          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
                         </div>
-                        
+                       
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="./login.php" class="alert ms-5"><i class="fa-solid fa-unlock-keyhole"></i>
                               Login</a>
