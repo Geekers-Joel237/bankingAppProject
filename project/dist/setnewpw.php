@@ -27,28 +27,28 @@
                 
                 $query1 = 'SELECT * FROM user WHERE email='. '"'.$_SESSION['usermail'].'"'.'';
 
-                // die($query1);
+                
                 //get result
                 $result1 = mysqli_query($conn,$query1);
 
-                // echo serialize($result1);
-                   //     //fetch data
+                
+                 //fetch data
                 $emails = mysqli_fetch_assoc($result1);
-                // var_dump($emails);
+                
                    
-                //     //Free result1
+                //Free result1
                mysqli_free_result($result1);    
 
                 $query = "UPDATE user SET
                     userpassword = '$password'
                 WHERE email = '{$_SESSION['usermail']}'";
 
-                // die($query);
+                
 
                 if (mysqli_query($conn,$query)) {
                     $msg = 'Youpi your have setup your new password';
                     $msgClass = 'alert-success';
-                     // header('Location:login.php');
+                    
 
                    //close connection
                                         
