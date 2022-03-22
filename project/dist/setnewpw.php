@@ -40,11 +40,7 @@
                mysqli_free_result($result1);    
 
                 $query = "UPDATE user SET
-                    email = '$emails[EMAIL]',
-                    nom = '$emails[NOM]',
-                    prenom = '$emails[PRENOM]',
-                    userpassword = '$password',
-                    tel = '$emails[TEL]'
+                    userpassword = '$password'
                 WHERE email = '{$_SESSION['usermail']}'";
 
                 // die($query);

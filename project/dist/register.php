@@ -50,37 +50,36 @@
 
                             //get result
                             $result1 = mysqli_query($conn,$query1);
-
+                            
                             //fetch data
                             $emails = mysqli_fetch_all($result1,MYSQLI_ASSOC);
-
+                            
                             //Free result1
                             mysqli_free_result($result1);
 
-                            foreach ($emails as $mail) {
+                            if (count($emails) == 0) {
+                                //new user
+                                $query = "INSERT INTO user(email,nom,prenom,userpassword,tel) 
+                                VALUES ('$email','$name','$surname','$password','$telephone')";
+                                addUser($conn,$query,$msg,$msgClass);
+                            } else {
+
+                                foreach ($emails as $mail) {
                                 
-                                if ($email == $mail['email']) {
-                                    //old user
-                                    $msg = 'User Already in Database';
-                                    $msgClass = 'alert-danger';
-                                } 
-                                else {
-                                    //new user
-                                    $query = "INSERT INTO user(email,nom,prenom,userpassword,tel) 
-                                    VALUES ('$email','$name','$surname','$password','$telephone')";
-
-                                    if (mysqli_query($conn,$query)) {
-                                        $msg = 'Youpi your are register';
-                                        $msgClass = 'alert-success';
-                                        // header('Location:login.php');
-
-                                         //close connection
-                                        
-                                    } else {
-                                        // echo 'ERROR' . mysqli_error($conn);
+                                    if ($email == $mail['email']) {
+                                        //old user
+                                        $msg = 'User Already in Database';
+                                        $msgClass = 'alert-danger';
+                                    } 
+                                    else {
+                                        //new user
+                                        $query = "INSERT INTO user(email,nom,prenom,userpassword,tel) 
+                                        VALUES ('$email','$name','$surname','$password','$telephone')";
+                                        addUser($conn,$query,$msg,$msgClass);
                                     }
                                 }
                             }
+                            
 
                         }
 
@@ -99,6 +98,20 @@
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+
+    function addUser($conn,$query,&$msg,&$msgClass) {
+        //new user
+       
+        if (mysqli_query($conn,$query)) {
+            $msg = 'Youpi your are register';
+            $msgClass = 'alert-success';
+           
+             //close connection
+            
+        } else {
+            // echo 'ERROR' . mysqli_error($conn);
+        }
     }
 ?>
 

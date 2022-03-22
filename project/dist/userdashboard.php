@@ -1,3 +1,32 @@
+<?php
+  require '../config/config.php';
+  require '../config/bd.php';
+
+  session_start();
+
+  //get user info
+  $query1 = 'SELECT * FROM user WHERE email='. '"'.$_SESSION['username'].'"'.'';
+  $result1 = mysqli_query($conn,$query1);
+  $emails = mysqli_fetch_assoc($result1);
+  mysqli_free_result($result1);
+  
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,15 +57,16 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <!-- <li><a href="pages.html">Pages</a></li>
             <li><a href="posts.html">Posts</a></li>
             <li><a href="users.html">Users</a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Welcome,<span>USER NAME</span></a></li>
-            <li><a href="#"><img src="./img/logo.svg" alt="avatar" srcset="" class="avatar"></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li class="nav-ittem"><a href="#" class="nav-link"><span class=""><?php echo 'Welcome ,'?>
+                <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : '' ?></span></a></li>
+            <li class="nav-ittem"><a href="#" class="nav-link"><img src="" alt="avatar" srcset="" class="avatar"></a></li>
+            <li class="nav-ittem"><a href="login.php" class="nav-link">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -78,12 +108,12 @@
         <div class="row">
           <div class="col-md-3">
             <div class="list-group">
-              <a href="index.html" class="list-group-item active dash">
+              <a href="index.php" class="list-group-item active dash">
                 <span class="glyphicon glyphicon-user bg-primary" aria-hidden="true"></span> Dashboard
               </a>
               <!-- <a href="pages.html" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Pages <span class="badge">12</span></a> -->
               <a href="#" class="list-group-item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Transactions <span class="badge">33</span></a>
-              <a href="settings.html" class="list-group-item"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a>
+              <a href="settings.php" class="list-group-item"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a>
             </div>
 
             <div class="well">
@@ -182,7 +212,8 @@
     <div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form>
+      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
+        method="post">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Send Cash </h4>
@@ -190,11 +221,11 @@
       <div class="modal-body">
         <div class="form-group">
           <label>Sender Email</label>
-          <input type="text" class="form-control" placeholder="xxx@zzz.com">
+          <input type="text" class="form-control" name="sender" placeholder="xxx@zzz.com">
         </div>
         <div class="form-group">
           <label>Receiver Email</label>
-          <input type="text" class="form-control" placeholder="xxx@zzz.com">
+          <input type="text" class="form-control" name="receiver" placeholder="xxx@zzz.com">
         </div>
         <!-- <div class="checkbox">
           <label>
@@ -203,15 +234,15 @@
         </div> -->
         <div class="form-group">
           <label>Password</label>
-          <input type="text" class="form-control" placeholder="********">
+          <input type="text" class="form-control" name="password" placeholder="********">
         </div>
         <div class="form-group">
           <label>Motif</label>
-          <input type="text" class="form-control" placeholder="Motif de la transaction">
+          <input type="text" class="form-control" name="motif" placeholder="Motif de la transaction">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" name="send" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Send</button>
       </div>
     </form>
