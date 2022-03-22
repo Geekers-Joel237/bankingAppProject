@@ -410,7 +410,7 @@ session_start();
 <!-- footer -->
 <footer class="p-5 bg-dark text-light text-center position-relative">
     <div class="container">
-        <p class="lead">Copyright &copy; 2022 Smart Payment
+        <p class="lead">Copyright &copy; <?php echo date('Y');?> Smart Payment
         </p>
         <a href="#" class="position-absolute bottom-0 end-0 p-5">
             <i class="fa-solid fa-arrow-up text-light"></i>
