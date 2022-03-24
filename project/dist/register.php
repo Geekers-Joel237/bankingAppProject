@@ -53,17 +53,23 @@
                             
                             //fetch data
                             $emails = mysqli_fetch_all($result1,MYSQLI_ASSOC);
-                            
+                            // var_dump($emails);
                             //Free result1
                             mysqli_free_result($result1);
 
                             if (count($emails) == 0) {
+                                // echo 'cas 1';
                                 //new user
                                 $query = "INSERT INTO user(email,nom,prenom,userpassword,tel) 
                                 VALUES ('$email','$name','$surname','$password','$telephone')";
                                 addUser($conn,$query,$msg,$msgClass);
+
+                                //Creation de compte
+                                createAccount($email,$conn);
+                                
                             } else {
 
+                                // echo 'cas 2';
                                 foreach ($emails as $mail) {
                                 
                                     if ($email == $mail['email']) {
@@ -76,7 +82,11 @@
                                         $query = "INSERT INTO user(email,nom,prenom,userpassword,tel) 
                                         VALUES ('$email','$name','$surname','$password','$telephone')";
                                         addUser($conn,$query,$msg,$msgClass);
+
+                                        createAccount($email,$conn);
+                                        
                                     }
+                                    break;
                                 }
                             }
                             
@@ -98,6 +108,38 @@
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+
+    function numcompte_in_db($numcompte,$conn) {
+        $query = 'SELECT numcompte FROM compte';
+        $result = mysqli_query($conn,$query);
+        $numcomptes = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        mysqli_free_result($result);
+
+        if (count($numcomptes) == 0) {
+            return false;
+        } else {
+            foreach($numcomptes as $num){
+                if ($numcompte == $num) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+
+    }
+
+    function createAccount($email,$conn) {
+        $num = rand(1000000000000000,9999999999999999);
+        while (numcompte_in_db($num,$conn)) {
+            $num = rand(1000000000000000,9999999999999999);
+        }
+
+        $query = "INSERT INTO compte(numcompte,user_email) 
+        VALUES ('$num','$email')";
+        mysqli_query($conn,$query);
+    
     }
 
     function addUser($conn,$query,&$msg,&$msgClass) {

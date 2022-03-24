@@ -1,7 +1,7 @@
 <?php 
     require '../config/config.php';
     require '../config/bd.php';
-
+    
     //Message Vars
     $msg = '';
     $msgClass = '';
@@ -47,6 +47,7 @@
                               if ($email == $mail[strtoupper('email')] && $password == $mail[strtoupper('userpassword')]) {
                                 session_start();  
                                 $_SESSION['username'] = $mail['NOM'];
+                                $_SESSION['usermail'] = $mail['EMAIL'];
                                 header('Location:index.php');
                                 break;
                                         
