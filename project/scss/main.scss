@@ -1,0 +1,36 @@
+
+@import 'reset';
+@import 'userdashboard';
+
+.login {
+    width: 100vw;
+    height: 100vh;
+    background: #f0f0f0;
+}
+.showcas {
+    margin-top: 100px !important;
+}
+
+.parent {
+    position: relative;
+    // border: 2px solid red;
+}
+
+.anim{
+    animation: move 3.5s ease-out infinite;
+}
+
+@keyframes move {
+    0%{
+        transform: translate(0px,-15px);
+    }
+    50%{
+        transform: translate(0px,0px);
+    }
+    100%{
+        transform: translate(0px,15px);
+    }
+}
+
+
+

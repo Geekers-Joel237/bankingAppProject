@@ -1,0 +1,22 @@
+
+$main-bg-color:#2C22E8;
+$main-text-color:#2C22E8;
+$second-text-color:#bbbec5;
+$second-bg-color:#c1efde;
+
+.primary-text {
+    color: $main-text-color;
+}
+
+.second-text {
+    color: $second-text-color;
+}
+
+.primary-bg {
+    background-color: $main-bg-color;
+}
+
+.secondary-bg {
+    background-color: $second-text-color;
+}
+

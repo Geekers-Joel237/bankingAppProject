@@ -1,0 +1,30 @@
+{
+  "name": "bankingappproject",
+  "version": "1.0.0",
+  "description": "banking app project from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass":"node-sass -w project/scss/ -o project/dist/css/ --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geekers-Joel237/bankingAppProject.git"
+  },
+  "keywords": [
+    "banking",
+    "app",
+    "project",
+    "from",
+    "scratch"
+  ],
+  "author": "Geekers-Joel237",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Geekers-Joel237/bankingAppProject/issues"
+  },
+  "homepage": "https://github.com/Geekers-Joel237/bankingAppProject#readme",
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  }
+}
